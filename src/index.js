@@ -1,4 +1,8 @@
 let addToy = false;
+toyUrl = 'http://localhost:3000/toys'
+
+
+
 
 document.addEventListener("DOMContentLoaded", () => {
   const addBtn = document.querySelector("#new-toy-btn");
@@ -11,5 +15,104 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       toyFormContainer.style.display = "none";
     }
-  });
-});
+  })
+
+getToys(toyUrl)
+
+  function getToys(url) {
+    fetch(url)
+    .then(resp => resp.json())
+    .then(data => data.forEach(makeToy))
+  }
+
+
+function makeToy(toy) {
+  const div = document.querySelector('#toy-collection')
+  const cardDiv = document.createElement('div')
+  const toysName = document.createElement('h2')
+  const toyImg = document.createElement('img')
+  const p = document.createElement('p')
+  const btn = document.createElement('button')
+  cardDiv.className = 'card'
+  toyImg.className = 'toy-avatar'
+  toysName.innerHTML = toy.name
+  toyImg.src = toy.image
+  p.innerHTML = `${toy.likes} likes`
+  btn.textContent = 'Like'
+  btn.className = 'like-btn'
+  div.append(cardDiv)
+  cardDiv.append(toysName, toyImg, p, btn)
+}
+
+let inputName = document.querySelectorAll('.input-text')[0]
+let inputImg = document.querySelectorAll('.input-text')[1]
+let toyForm = document.querySelector('.add-toy-form')
+
+toyForm.addEventListener('submit', renderToy)
+
+function renderToy(e) {
+  e.preventDefault()
+
+  fetch(toyUrl, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      name: inputName.value, 
+      image: inputImg.value,
+      likes: 0
+    })
+  })
+  .then(res => res.json())
+  .then(data => makeToy(data))
+}
+
+})
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
