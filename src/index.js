@@ -1,6 +1,6 @@
 let addToy = false;
 toyUrl = 'http://localhost:3000/toys'
-
+const div = document.querySelector('#toy-collection')
 
 
 
@@ -27,7 +27,6 @@ getToys(toyUrl)
 
 
 function makeToy(toy) {
-  const div = document.querySelector('#toy-collection')
   const cardDiv = document.createElement('div')
   const toysName = document.createElement('h2')
   const toyImg = document.createElement('img')
@@ -56,7 +55,8 @@ function renderToy(e) {
   fetch(toyUrl, {
     method: 'POST',
     headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Accept': 'application/json'
     },
     body: JSON.stringify({
       name: inputName.value, 
@@ -68,7 +68,26 @@ function renderToy(e) {
   .then(data => makeToy(data))
 }
 
-})
+div.addEventListener('click', (e) => {
+   if(e.target.className === 'like-btn'){
+     let currentLikes = parseInt(e.target.previousElementSibling.innerText)
+     let newLikes = currentLikes + 1
+     e.target.previousElementSibling.innerText = newLikes + " likes "
+    
+     fetch(`http://localhost:3000/toys/${e.target.id}}`, { // <===== wrong Still need to figure out how to populate the id here
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+           'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+          likes: newLikes
+        })
+      }) 
+      
+    }
+  })
+}) // End of DOMContentLoaded
 
 
 
