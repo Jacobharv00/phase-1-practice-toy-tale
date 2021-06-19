@@ -1,6 +1,6 @@
 let addToy = false;
 toyUrl = 'http://localhost:3000/toys'
-const div = document.querySelector('#toy-collection')
+const toyCollection = document.querySelector('#toy-collection')
 
 
 
@@ -37,9 +37,10 @@ function makeToy(toy) {
   toysName.innerHTML = toy.name
   toyImg.src = toy.image
   p.innerHTML = `${toy.likes} likes`
+  btn.id = `${toy.id}` 
   btn.textContent = 'Like'
   btn.className = 'like-btn'
-  div.append(cardDiv)
+  toyCollection.append(cardDiv)
   cardDiv.append(toysName, toyImg, p, btn)
 }
 
@@ -63,18 +64,18 @@ function renderToy(e) {
       image: inputImg.value,
       likes: 0
     })
-  })
+  }) 
   .then(res => res.json())
   .then(data => makeToy(data))
-}
+ }
 
-div.addEventListener('click', (e) => {
+toyCollection.addEventListener('click', (e) => {
    if(e.target.className === 'like-btn'){
      let currentLikes = parseInt(e.target.previousElementSibling.innerText)
      let newLikes = currentLikes + 1
-     e.target.previousElementSibling.innerText = newLikes + " likes "
+    e.target.previousElementSibling.innerText = newLikes + ' Likes'
     
-     fetch(`http://localhost:3000/toys/${e.target.id}}`, { // <===== wrong Still need to figure out how to populate the id here
+     fetch(`http://localhost:3000/toys/${e.target.id}`, { 
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
