@@ -1,93 +1,87 @@
 let addToy = false;
-toyUrl = 'http://localhost:3000/toys'
-const toyCollection = document.querySelector('#toy-collection')
-
-
 
 document.addEventListener("DOMContentLoaded", () => {
-  const addBtn = document.querySelector("#new-toy-btn");
-  const toyFormContainer = document.querySelector(".container");
+  const addBtn = document.querySelector("#new-toy-btn")
+  const toyForm = document.querySelector(".container") 
+  const toyCollection = document.querySelector('#toy-collection') // Div element where all toys live
   addBtn.addEventListener("click", () => {
     // hide & seek with the form
     addToy = !addToy;
     if (addToy) {
-      toyFormContainer.style.display = "block";
+      toyForm.style.display = "block";
     } else {
-      toyFormContainer.style.display = "none";
+      toyForm.style.display = "none";
     }
   })
 
-getToys(toyUrl)
+// Get Request to fetch all the toys
+fetch('http://localhost:3000/toys')
+.then(resp => resp.json())
+.then(toys => {
+  let toysData = toys.map(function(toy) {
+    return `
+    <div class="card">
+    <h2>${toy.name}</h2>
+    <img src="${toy.image}" class="toy-avatar" />
+    <p>${toy.likes} Likes </p>
+    <button class="like-btn" id="${toy.id}">Like <3</button>
+  </div> `
+  })
+  toyCollection.innerHTML = toysData.join('')
+})
 
-  function getToys(url) {
-    fetch(url)
-    .then(resp => resp.json())
-    .then(data => data.forEach(makeToy))
-  }
-
-
-function makeToy(toy) {
-  const cardDiv = document.createElement('div')
-  const toysName = document.createElement('h2')
-  const toyImg = document.createElement('img')
-  const p = document.createElement('p')
-  const btn = document.createElement('button')
-  cardDiv.className = 'card'
-  toyImg.className = 'toy-avatar'
-  toysName.innerHTML = toy.name
-  toyImg.src = toy.image
-  p.innerHTML = `${toy.likes} likes`
-  btn.id = `${toy.id}` 
-  btn.textContent = 'Like'
-  btn.className = 'like-btn'
-  toyCollection.append(cardDiv)
-  cardDiv.append(toysName, toyImg, p, btn)
-}
-
-let inputName = document.querySelectorAll('.input-text')[0]
-let inputImg = document.querySelectorAll('.input-text')[1]
-let toyForm = document.querySelector('.add-toy-form')
-
-toyForm.addEventListener('submit', renderToy)
-
-function renderToy(e) {
+// EventListener for the form & POST Request
+toyForm.addEventListener('submit', (e) => {
   e.preventDefault()
+  let toyName = e.target.name.value
+  let toyImg = e.target.image.value
 
-  fetch(toyUrl, {
-    method: 'POST',
+fetch('http://localhost:3000/toys', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Accept': 'application/json'
+  },
+  body: JSON.stringify({
+    name: toyName,
+    image: toyImg,
+    likes: 0
+  })
+})
+.then(resp => resp.json())
+.then(newToy => {
+  let newToyEl = `
+  <div class="card">
+  <h2>${newToy.name}</h2>
+  <img src="${newToy.image}" class="toy-avatar" />
+  <p>${newToy.likes} Likes </p>
+  <button class="like-btn" id="${newToy.id}">Like <3</button>
+</div> `
+toyCollection.innerHTML += newToyEl 
+  })
+})
+
+// Event Listener for like button and PATCH Request
+toyCollection.addEventListener('click', (e) => {
+  if(e.target.className === 'like-btn') {
+    let currentLikes = parseInt(e.target.previousElementSibling.innerText) // Take a string a make it a number
+    let newLikes = currentLikes + 1 // add number to number
+    e.target.previousElementSibling.innerText = newLikes + ' likes' // add the string 'likes' after updated number
+    //console.log(e.target.id) // each toys id to be passed to PATCH Request
+    fetch(`http://localhost:3000/toys/${e.target.id}`, {
+    method: 'PATCH',
     headers: {
       'Content-Type': 'application/json',
       'Accept': 'application/json'
     },
-    body: JSON.stringify({
-      name: inputName.value, 
-      image: inputImg.value,
-      likes: 0
+      body: JSON.stringify({
+      likes: newLikes
+      })
     })
-  }) 
-  .then(res => res.json())
-  .then(data => makeToy(data))
- }
+  }
+})
 
-toyCollection.addEventListener('click', (e) => {
-   if(e.target.className === 'like-btn'){
-     let currentLikes = parseInt(e.target.previousElementSibling.innerText)
-     let newLikes = currentLikes + 1
-    e.target.previousElementSibling.innerText = newLikes + ' Likes'
-    
-     fetch(`http://localhost:3000/toys/${e.target.id}`, { 
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-           'Accept': 'application/json'
-        },
-        body: JSON.stringify({
-          likes: newLikes
-        })
-      }) 
-      
-    }
-  })
+
 }) // End of DOMContentLoaded
 
 
