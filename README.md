@@ -1,4 +1,4 @@
-# Additional Practice: Toy Tale
+<!-- # Additional Practice: Toy Tale
 
 ## Learning Goals
 
@@ -89,9 +89,9 @@ After all of that, the toy card should look something like this:
     <p>4 Likes </p>
     <button class="like-btn" id="[toy_id]">Like <3</button>
   </div>
-```
+``` -->
 
-### Add a New Toy
+<!-- ### Add a New Toy
 
 When a user submits the toy form, two things should happen:
 
@@ -119,9 +119,9 @@ body: JSON.stringify({
 })
 ```
 
-For examples, refer to the [documentation][fetch docs].
+For examples, refer to the [documentation][fetch docs]. -->
 
-### Increase a Toy's Likes
+<!-- ### Increase a Toy's Likes
 
 When a user clicks on a toy's like button, two things should happen:
 
@@ -172,7 +172,7 @@ If your request isn't working, make sure your headers and keys match the
 > each individual toy card. Given that the toy cards will be rendered to the DOM
 > dynamically from the `Response` returned by the `fetch` "GET" request, think
 > about **when** it makes sense to add the event listener to each toy's "Like"
-> button.
+> button. -->
 
 ## Conclusion
 

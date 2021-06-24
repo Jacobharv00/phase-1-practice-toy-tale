@@ -4,13 +4,13 @@
       "id": 1,
       "name": "Woody",
       "image": "http://www.pngmart.com/files/3/Toy-Story-Woody-PNG-Photos.png",
-      "likes": 5
+      "likes": 11
     },
     {
       "id": 2,
       "name": "Buzz Lightyear",
       "image": "http://www.pngmart.com/files/6/Buzz-Lightyear-PNG-Transparent-Picture.png",
-      "likes": 6
+      "likes": 12
     },
     {
       "id": 3,
@@ -25,12 +25,6 @@
       "likes": 8
     },
     {
-      "id": 5,
-      "name": "Rex",
-      "image": "http://umich.edu/~chemh215/W11HTML/SSG5/ssg5.2/FRex.png",
-      "likes": 9
-    },
-    {
       "id": 6,
       "name": "Bo Peep",
       "image": "http://4.bp.blogspot.com/_OZHbJ8c71OM/Sog43CMFX2I/AAAAAAAADEs/0AKX0XslD4g/s400/bo.png",
@@ -40,30 +34,18 @@
       "id": 7,
       "name": "Hamm",
       "image": "https://cdn140.picsart.com/244090226021212.png?r1024x1024",
-      "likes": 10
-    },
-    {
-      "id": 8,
-      "name": "Little Green Men",
-      "image": "http://www.pngmart.com/files/3/Toy-Story-Alien-PNG-File.png",
       "likes": 15
     },
     {
-      "name": "Weezy",
-      "image": "https://i.pinimg.com/originals/cd/57/c0/cd57c0056b4f50e1df5f126407a4ea70.jpg",
-      "likes": 7,
-      "id": 9
-    },
-    {
-      "name": "Stinky Pete",
-      "image": "https://www.gannett-cdn.com/presto/2020/11/18/USAT/e53c9bae-a4a4-4fda-9ef7-6243648fb818-tscp_prospector16G.27.jpg?crop=521,695,x54,y0&quality=50&width=640",
-      "likes": 2,
+      "name": "Forky",
+      "image": "https://www.elc.co.uk/medias/539068-Primary-1200Wx1200H?context=bWFzdGVyfGltYWdlc3wxNTE1NjZ8aW1hZ2UvcG5nfGltYWdlcy9oYTUvaDMyLzkxNzAyMzM1MjQyNTQucG5nfDgxODQ3YWIzMGM0NjJkZDNjOWE5OWFkNzllNTc5NWIyNmY0NWJmMDFmNWNiMjJjMzg4NzlmNWFmNDc5ZDU0MWI",
+      "likes": 30,
       "id": 10
     },
     {
-      "name": "Bullseye",
-      "image": "https://allears.net/wp-content/uploads/2020/04/Bullseye-Toy-Story.jpg",
-      "likes": 12,
+      "name": "Taco",
+      "image": "https://ctl.s6img.com/society6/img/aSbuJTmZxMQaxvP6uuHIP-WkWl4/w_700/prints/~artwork/s6-original-art-uploads/society6/uploads/misc/61ff0e660fd6474898073663d26063f9/~~/cinco-de-mayo-taco-dancing-sombrero-maracas-prints.jpg",
+      "likes": 10,
       "id": 11
     }
   ]
